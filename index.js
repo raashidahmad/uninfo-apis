@@ -1,22 +1,17 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysqllib = require('./config/connection');
 
 const app = express();
 
 /*
 ** Connection to database
 */
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'prog-ind-data'
-  });
-  
-  connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to MySQL Server!');
-  });
+mysqllib.connect().then(() => {
+    console.log('Connected to mysql...')
+  }).catch(e => {
+    console.error('Error connecting mysql...')
+    process.exit()
+  })
 /*
 ** End of connection
 */
